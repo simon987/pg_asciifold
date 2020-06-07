@@ -1,6 +1,7 @@
 # PostgreSQL ASCII folding
 
-Reasonably fast ASCII folding functions (based on [Lucene asciifolding filter](https://lucene.apache.org/core/4_0_0/analyzers-common/org/apache/lucene/analysis/miscellaneous/ASCIIFoldingFilter.html)) for PostgreSQL
+Reasonably fast (tested on Musicbrainz dataset, is 40% faster than a simple `UPPER()`) 
+ASCII folding functions based on [Lucene's ASCIIFoldingFilter](https://lucene.apache.org/core/4_0_0/analyzers-common/org/apache/lucene/analysis/miscellaneous/ASCIIFoldingFilter.html) for PostgreSQL
 
 *Example:*
 ```
@@ -8,6 +9,12 @@ postgres=# SELECT asciifold('Hello, ⒩ᴐⱤú⒴⁈～!');
       asciifold       
 ----------------------
  Hello, (n)ORu(y)?!~!
+(1 row)
+
+postgres=# SELECT asciifold_lower('Hello, ⒩ᴐⱤú⒴⁈～!');
+      asciifold       
+----------------------
+ hello, (n)oru(y)?!~!
 (1 row)
 ```
 
